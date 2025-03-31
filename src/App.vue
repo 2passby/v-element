@@ -3,7 +3,34 @@ import Button from './components/Button/Button.vue'
 </script>
 
 <template>
-  <Button type="primary">123</Button>
+  <h1>非plain默认-button组件测试</h1>
+  <Button type="primary" ref="Button_ref">实现了我的按钮</Button>
+  <Button type="success" size="large">success</Button>
+  <Button type="warning">warning</Button>
+  <Button type="info">info</Button>
+  <Button type="danger">danger</Button>
+  <Button plain>朴素按钮</Button>
+  <Button disabled>禁用</Button>
+  <h1>plain模式-button组件测试</h1>
+  <Button type="success" plain>success</Button>
+  <Button type="warning" plain>warning</Button>
+  <Button type="info" plain>info</Button>
+  <Button type="danger" plain>danger</Button>
+  <Button plain>朴素按钮</Button>
+  <Button disabled>禁用</Button>
+  <h1>round模式-button组件测试</h1>
+  <Button type="success" round>success</Button>
+  <Button type="warning" round>warning</Button>
+  <Button type="info" round>info</Button>
+  <Button type="danger" round>danger</Button>
+  <Button round plain>朴素按钮</Button>
+  <Button disabled>禁用</Button>
+  <h1>circle-button组件测试</h1>
+  <Button circle type="primary">圆</Button>
+  <Button circle type="success">圆</Button>
+  <Button circle type="warning">圆</Button>
+  <Button circle type="info">圆</Button>
+  <Button circle type="danger">圆</Button>
 </template>
 
 <style scoped>
