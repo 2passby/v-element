@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ButtonProps } from './types'
-
+import Icon from '../Icon/Icon.vue'
 import { ref } from 'vue'
 let _ref = ref<HTMLButtonElement>()
 defineOptions({
@@ -33,6 +33,7 @@ defineExpose({
     :autofoucs="autofoucs"
     :type="nativeType"
   >
+    <Icon v-if="loading" icon="spinner" spin></Icon>
     <Icon v-if="icon" :icon="icon"></Icon>
     <span>
       <slot></slot>

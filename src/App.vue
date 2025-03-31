@@ -2,12 +2,15 @@
 import Button from './components/Button/Button.vue'
 import Collapse from './components/Collapse/Collapse.vue'
 import CollapseItem from './components/Collapse/CollapseItem.vue'
+import Icon from './components/Icon/Icon.vue'
 import { ref } from 'vue'
 //预设打开的Collapse
 let Collapse_openValues = ref(['a'])
 </script>
 
 <template>
+  <h1>Icon组件测试</h1>
+  <Icon icon="arrow-up" size="2xl" spin type="primary" color="red"></Icon>
   <h1>非plain默认-button组件测试</h1>
   <Button type="primary" ref="Button_ref">实现了我的按钮</Button>
   <Button type="success" size="large">success</Button>
@@ -36,6 +39,9 @@ let Collapse_openValues = ref(['a'])
   <Button circle type="warning">圆</Button>
   <Button circle type="info">圆</Button>
   <Button circle type="danger">圆</Button>
+  <h1>icon-button组件测试</h1>
+  <Button loading>loading</Button>
+  <Button icon="arrow-up">up</Button>
   <h1>collapse组件测试</h1>
   <!-- v-model在组件上是:modelValue 与 'update:modelValue'事件的简写 在组件中实现update:modelValue传递新值得事件 -->
   <Collapse v-model="Collapse_openValues" :accordion="false">
