@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import Button from './components/Button/Button.vue'
+import Collapse from './components/Collapse/Collapse.vue'
+import CollapseItem from './components/Collapse/CollapseItem.vue'
+import { ref } from 'vue'
+//预设打开的Collapse
+let Collapse_openValues = ref(['a'])
 </script>
 
 <template>
@@ -31,6 +36,24 @@ import Button from './components/Button/Button.vue'
   <Button circle type="warning">圆</Button>
   <Button circle type="info">圆</Button>
   <Button circle type="danger">圆</Button>
+  <h1>collapse组件测试</h1>
+  <!-- v-model在组件上是:modelValue 与 'update:modelValue'事件的简写 在组件中实现update:modelValue传递新值得事件 -->
+  <Collapse v-model="Collapse_openValues" :accordion="false">
+    <CollapseItem name="a" title="Title A">
+      <!-- <template #title>
+        <h3>a-title</h3>
+      </template> -->
+      <h1>headline title</h1>
+      <div>this is content a aaa</div>
+    </CollapseItem>
+    <CollapseItem name="b" title="b-title">
+      <p>默认插槽的文字-b-title</p>
+    </CollapseItem>
+    <CollapseItem name="c" title="c-title" disabled>
+      <p>默认插槽的文字-c-title</p>
+    </CollapseItem>
+    <!-- {{ Collapse_openValues }} -->
+  </Collapse>
 </template>
 
 <style scoped>
