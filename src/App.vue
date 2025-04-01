@@ -3,14 +3,36 @@ import Button from './components/Button/Button.vue'
 import Collapse from './components/Collapse/Collapse.vue'
 import CollapseItem from './components/Collapse/CollapseItem.vue'
 import Icon from './components/Icon/Icon.vue'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { bottom, createPopper } from '@popperjs/core'
+import type { Instance } from '@popperjs/core'
+//测试tooltip popper显示
+let popperInstance: Instance | null = null
+const overlayNode = ref<HTMLElement>()
+const triggerNode = ref<HTMLElement>()
+onMounted(() => {
+  if (overlayNode.value && triggerNode.value) {
+    //返回一个实例
+    popperInstance = createPopper(triggerNode.value, overlayNode.value, {
+      placement: 'right',
+    })
+  }
+  setTimeout(() => {
+    popperInstance?.setOptions({
+      placement: 'bottom',
+    })
+  }, 2000)
+})
 //预设打开的Collapse
 let Collapse_openValues = ref(['a'])
 </script>
 
 <template>
   <h1>Icon组件测试</h1>
-  <Icon icon="arrow-up" size="2xl" spin type="primary" color="red"></Icon>
+  <img src="./assets/logo.svg" alt="" ref="triggerNode" class="logo" />
+  <div ref="overlayNode"><h2>hello tooltip</h2></div>
+  <h1>Icon组件测试</h1>
+  <Icon icon="arrow-up" size="2xl" type="primary" color="red"></Icon>
   <h1>非plain默认-button组件测试</h1>
   <Button type="primary" ref="Button_ref">实现了我的按钮</Button>
   <Button type="success" size="large">success</Button>
@@ -68,19 +90,14 @@ header {
 }
 
 .logo {
-  display: block;
-  margin: 0 auto 2rem;
+  width: 50px;
+  height: 50px;
 }
-
 @media (min-width: 1024px) {
   header {
     display: flex;
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
   }
 
   header .wrapper {
