@@ -7,8 +7,15 @@ import { ref, onMounted } from 'vue'
 import { bottom, createPopper } from '@popperjs/core'
 import type { Instance } from '@popperjs/core'
 import Tooltip from './components/Tooltip/Tooltip.vue'
+import type { TooltipInstance } from '@/components/Tooltip/types'
 //测试tooltip popper显示
-
+let tooltipRef = ref<TooltipInstance | null>()
+const show = () => {
+  tooltipRef.value?.show()
+}
+const hide = () => {
+  tooltipRef.value?.hide()
+}
 //预设打开的Collapse
 let Collapse_openValues = ref(['a'])
 //测试Tooltip动态绑定事件,无问题
@@ -22,12 +29,26 @@ let Collapse_openValues = ref(['a'])
 
 <template>
   <h1>Tooltip组件测试</h1>
-  <Tooltip content="hello tooltip" placement="right" trigger="click">
+  <Tooltip content="hello tooltip" placement="right" trigger="click" class="tool">
     <img src="./assets/logo.svg" alt="" class="logo" />
     <template #content>
       <h3>hello h-3 Tooltip</h3>
     </template>
   </Tooltip>
+  <Tooltip
+    content="hello tooltip"
+    placement="right"
+    trigger="click"
+    ref="tooltipRef"
+    :manual="true"
+  >
+    <img src="./assets/logo.svg" alt="" class="logo" />
+    <template #content>
+      <h3>hello h-3 Tooltip</h3>
+    </template>
+  </Tooltip>
+  <Button type="primary" @click="show" class="show_btn">点我展示tooltip</Button>
+  <Button type="success" @click="hide">点我隐藏tooltip</Button>
   <h1>Icon组件测试</h1>
   <Icon icon="arrow-up" size="2xl" type="primary" color="red"></Icon>
   <h1>非plain默认-button组件测试</h1>
@@ -82,8 +103,14 @@ let Collapse_openValues = ref(['a'])
 </template>
 
 <style scoped>
+.tool {
+  margin-right: 200px;
+}
 header {
   line-height: 1.5;
+}
+.show_btn {
+  margin-left: 150px;
 }
 
 .logo {

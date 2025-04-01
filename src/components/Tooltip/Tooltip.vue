@@ -3,7 +3,7 @@ import type { TooltipProps } from './types'
 import type { TooltipsEmits } from './types'
 import type { Instance } from '@popperjs/core'
 import { createPopper } from '@popperjs/core'
-import { ref, watch, reactive, onMounted } from 'vue'
+import { ref, watch, reactive, onMounted, onUnmounted } from 'vue'
 import { defineOptions } from 'vue'
 import UseClickOutside from '@/hooks/UseClickOutside'
 defineOptions({
@@ -13,8 +13,7 @@ const popperNode = ref<HTMLElement>()
 const triggerNode = ref<HTMLElement>()
 const popperContainerNode = ref<HTMLElement>()
 UseClickOutside(popperContainerNode, () => {
-  if (props.trigger === 'click' && isopen.value === true) {
-    console.log('123')
+  if (props.trigger === 'click' && isopen.value === true && !props.manual) {
     isopen.value = false
   }
 })
@@ -49,9 +48,21 @@ const attachEvents = () => {
   }
 }
 onMounted(() => {
-  attachEvents()
+  if (!props.manual) {
+    attachEvents()
+  }
 })
-
+watch(
+  () => props.manual,
+  (ismanual) => {
+    if (ismanual) {
+      events = {}
+      outerevents = {}
+    } else {
+      attachEvents()
+    }
+  },
+)
 // 在dom更新后调用watch监听isopen的值
 watch(
   isopen,
@@ -80,6 +91,13 @@ watch(
     }
   },
 )
+defineExpose({
+  show: open,
+  hide: close,
+})
+onUnmounted(() => {
+  popperInstance?.destroy()
+})
 </script>
 
 <template>
