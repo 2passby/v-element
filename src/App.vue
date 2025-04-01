@@ -12,17 +12,17 @@ import Tooltip from './components/Tooltip/Tooltip.vue'
 //预设打开的Collapse
 let Collapse_openValues = ref(['a'])
 //测试Tooltip动态绑定事件,无问题
-let triggers = ref<any>('hover')
-onMounted(() => {
-  setTimeout(() => {
-    triggers.value = 'click'
-  }, 2000)
-})
+// let triggers = ref<any>('hover')
+// onMounted(() => {
+//   setTimeout(() => {
+//     triggers.value = 'click'
+//   }, 2000)
+// })
 </script>
 
 <template>
   <h1>Tooltip组件测试</h1>
-  <Tooltip content="hello tooltip" placement="bottom" :trigger="triggers">
+  <Tooltip content="hello tooltip" placement="right" trigger="click">
     <img src="./assets/logo.svg" alt="" class="logo" />
     <template #content>
       <h3>hello h-3 Tooltip</h3>

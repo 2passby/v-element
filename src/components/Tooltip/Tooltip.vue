@@ -5,11 +5,19 @@ import type { Instance } from '@popperjs/core'
 import { createPopper } from '@popperjs/core'
 import { ref, watch, reactive, onMounted } from 'vue'
 import { defineOptions } from 'vue'
+import UseClickOutside from '@/hooks/UseClickOutside'
 defineOptions({
   name: 'vk-Tooltip',
 })
 const popperNode = ref<HTMLElement>()
 const triggerNode = ref<HTMLElement>()
+const popperContainerNode = ref<HTMLElement>()
+UseClickOutside(popperContainerNode, () => {
+  if (props.trigger === 'click' && isopen.value === true) {
+    console.log('123')
+    isopen.value = false
+  }
+})
 let isopen = ref(false)
 //popper.js中的控制弹层的实例对象
 let popperInstance: Instance | null = null
@@ -43,6 +51,7 @@ const attachEvents = () => {
 onMounted(() => {
   attachEvents()
 })
+
 // 在dom更新后调用watch监听isopen的值
 watch(
   isopen,
@@ -59,6 +68,7 @@ watch(
   },
   { flush: 'post' },
 )
+//监听trigger，改变后重新绑定事件，清空原来的
 watch(
   () => props.trigger,
   (newvalue, oldvalue) => {
@@ -73,7 +83,7 @@ watch(
 </script>
 
 <template>
-  <div class="vk-tooltip" v-on="outerevents">
+  <div class="vk-tooltip" v-on="outerevents" ref="popperContainerNode">
     <div class="vk-tooltip__trigger" ref="triggerNode" v-on="events">
       <slot></slot>
     </div>
@@ -87,6 +97,9 @@ watch(
 <style scoped>
 .vk-tooltip__trigger,
 .vk-tooltip__popper {
+  display: inline-block;
+}
+.vk-tooltip {
   display: inline-block;
 }
 </style>
