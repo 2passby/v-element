@@ -6,31 +6,28 @@ import Icon from './components/Icon/Icon.vue'
 import { ref, onMounted } from 'vue'
 import { bottom, createPopper } from '@popperjs/core'
 import type { Instance } from '@popperjs/core'
+import Tooltip from './components/Tooltip/Tooltip.vue'
 //测试tooltip popper显示
-let popperInstance: Instance | null = null
-const overlayNode = ref<HTMLElement>()
-const triggerNode = ref<HTMLElement>()
-onMounted(() => {
-  if (overlayNode.value && triggerNode.value) {
-    //返回一个实例
-    popperInstance = createPopper(triggerNode.value, overlayNode.value, {
-      placement: 'right',
-    })
-  }
-  setTimeout(() => {
-    popperInstance?.setOptions({
-      placement: 'bottom',
-    })
-  }, 2000)
-})
+
 //预设打开的Collapse
 let Collapse_openValues = ref(['a'])
+//测试Tooltip动态绑定事件,无问题
+let triggers = ref<any>('hover')
+onMounted(() => {
+  setTimeout(() => {
+    triggers.value = 'click'
+  }, 2000)
+})
 </script>
 
 <template>
-  <h1>Icon组件测试</h1>
-  <img src="./assets/logo.svg" alt="" ref="triggerNode" class="logo" />
-  <div ref="overlayNode"><h2>hello tooltip</h2></div>
+  <h1>Tooltip组件测试</h1>
+  <Tooltip content="hello tooltip" placement="bottom" :trigger="triggers">
+    <img src="./assets/logo.svg" alt="" class="logo" />
+    <template #content>
+      <h3>hello h-3 Tooltip</h3>
+    </template>
+  </Tooltip>
   <h1>Icon组件测试</h1>
   <Icon icon="arrow-up" size="2xl" type="primary" color="red"></Icon>
   <h1>非plain默认-button组件测试</h1>
@@ -92,18 +89,5 @@ header {
 .logo {
   width: 50px;
   height: 50px;
-}
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
 }
 </style>
