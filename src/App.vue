@@ -4,6 +4,7 @@ import Collapse from './components/Collapse/Collapse.vue'
 import CollapseItem from './components/Collapse/CollapseItem.vue'
 import Icon from './components/Icon/Icon.vue'
 import { ref, onMounted } from 'vue'
+import type { Placement, Options } from '@popperjs/core'
 import { bottom, createPopper } from '@popperjs/core'
 import type { Instance } from '@popperjs/core'
 import Tooltip from './components/Tooltip/Tooltip.vue'
@@ -25,11 +26,19 @@ let Collapse_openValues = ref(['a'])
 //     triggers.value = 'click'
 //   }, 2000)
 // })
+//测试tooltip是否支持options
+let popperoptions: Partial<Options> = { placement: 'right-end', strategy: 'fixed' }
 </script>
 
 <template>
   <h1>Tooltip组件测试</h1>
-  <Tooltip content="hello tooltip" placement="right" trigger="click" class="tool">
+  <Tooltip
+    content="hello tooltip"
+    placement="right"
+    trigger="click"
+    class="tool"
+    :popper-options="popperoptions"
+  >
     <img src="./assets/logo.svg" alt="" class="logo" />
     <template #content>
       <h3>hello h-3 Tooltip</h3>
@@ -50,7 +59,7 @@ let Collapse_openValues = ref(['a'])
   <Button type="primary" @click="show" class="show_btn">点我展示tooltip</Button>
   <Button type="success" @click="hide">点我隐藏tooltip</Button>
   <h1>Icon组件测试</h1>
-  <Icon icon="arrow-up" size="2xl" type="primary" color="red"></Icon>
+  <Icon icon="arrow-up" size="2xl" type="primary" color="red" spin></Icon>
   <h1>非plain默认-button组件测试</h1>
   <Button type="primary" ref="Button_ref">实现了我的按钮</Button>
   <Button type="success" size="large">success</Button>

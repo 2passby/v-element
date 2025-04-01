@@ -3,7 +3,7 @@ import type { TooltipProps } from './types'
 import type { TooltipsEmits } from './types'
 import type { Instance } from '@popperjs/core'
 import { createPopper } from '@popperjs/core'
-import { ref, watch, reactive, onMounted, onUnmounted } from 'vue'
+import { ref, watch, reactive, onMounted, onUnmounted, computed } from 'vue'
 import { defineOptions } from 'vue'
 import UseClickOutside from '@/hooks/UseClickOutside'
 defineOptions({
@@ -17,11 +17,19 @@ UseClickOutside(popperContainerNode, () => {
     isopen.value = false
   }
 })
+const popperOptions = computed(() => {
+  return {
+    placement: props.placement,
+    ...props.popperOptions,
+  }
+})
 let isopen = ref(false)
 //popper.js中的控制弹层的实例对象
 let popperInstance: Instance | null = null
 const props = withDefaults(defineProps<TooltipProps>(), {
   placement: 'bottom',
+  trigger: 'hover',
+  transtition: 'fade',
 })
 const emit = defineEmits<TooltipsEmits>()
 let events: Record<string, any> = reactive({})
@@ -69,9 +77,7 @@ watch(
   (newvalue) => {
     if (newvalue) {
       if (popperNode.value && triggerNode.value) {
-        popperInstance = createPopper(triggerNode.value, popperNode.value, {
-          placement: props.placement,
-        })
+        popperInstance = createPopper(triggerNode.value, popperNode.value, popperOptions.value)
       } else {
         popperInstance?.destroy()
       }
@@ -105,11 +111,13 @@ onUnmounted(() => {
     <div class="vk-tooltip__trigger" ref="triggerNode" v-on="events">
       <slot></slot>
     </div>
-    <div class="vk-tooltip__popper" ref="popperNode" v-if="isopen">
-      <slot name="content">
-        {{ content }}
-      </slot>
-    </div>
+    <Transition :name="transtition">
+      <div class="vk-tooltip__popper" ref="popperNode" v-if="isopen">
+        <slot name="content">
+          {{ content }}
+        </slot>
+      </div>
+    </Transition>
   </div>
 </template>
 <style scoped>
