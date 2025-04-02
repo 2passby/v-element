@@ -42,7 +42,7 @@ let popperoptions: Partial<Options> = { placement: 'right-end', strategy: 'fixed
   >
     <img src="./assets/logo.svg" alt="" class="logo" />
     <template #content>
-      <h3>hello h-3 Tooltip</h3>
+      <span>hello h-3 Tooltip</span>
     </template>
   </Tooltip>
   <Tooltip
@@ -54,7 +54,7 @@ let popperoptions: Partial<Options> = { placement: 'right-end', strategy: 'fixed
   >
     <img src="./assets/logo.svg" alt="" class="logo" />
     <template #content>
-      <h3>hello h-3 Tooltip</h3>
+      <span>hello h-3 Tooltip</span>
     </template>
   </Tooltip>
   <Tooltip
@@ -66,7 +66,7 @@ let popperoptions: Partial<Options> = { placement: 'right-end', strategy: 'fixed
   >
     <img src="./assets/logo.svg" alt="" class="logo" />
     <template #content>
-      <h3>hello h-3 Tooltip</h3>
+      <span>hello h-3 Tooltip</span>
     </template>
   </Tooltip>
   <Button type="primary" @click="show" class="show_btn">点我展示tooltip</Button>
