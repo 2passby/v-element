@@ -7,6 +7,8 @@ export interface TooltipProps {
   manual?: boolean
   popperOptions?: Partial<Options>
   transtition?: string
+  opendelay?: number
+  closedelay?: number
 }
 // 声明emits触发事件类型,ts函数签名类型声明
 export interface TooltipsEmits {

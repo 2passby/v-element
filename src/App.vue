@@ -26,6 +26,7 @@ let Collapse_openValues = ref(['a'])
 //     triggers.value = 'click'
 //   }, 2000)
 // })
+
 //测试tooltip是否支持options
 let popperoptions: Partial<Options> = { placement: 'right-end', strategy: 'fixed' }
 </script>
@@ -38,6 +39,18 @@ let popperoptions: Partial<Options> = { placement: 'right-end', strategy: 'fixed
     trigger="click"
     class="tool"
     :popper-options="popperoptions"
+  >
+    <img src="./assets/logo.svg" alt="" class="logo" />
+    <template #content>
+      <h3>hello h-3 Tooltip</h3>
+    </template>
+  </Tooltip>
+  <Tooltip
+    content="hello tooltip"
+    placement="right"
+    class="tool"
+    :opendelay="1000"
+    :closedelay="1000"
   >
     <img src="./assets/logo.svg" alt="" class="logo" />
     <template #content>

@@ -6,6 +6,7 @@ import { createPopper } from '@popperjs/core'
 import { ref, watch, reactive, onMounted, onUnmounted, computed } from 'vue'
 import { defineOptions } from 'vue'
 import UseClickOutside from '@/hooks/UseClickOutside'
+import { debounce } from 'lodash-es'
 defineOptions({
   name: 'vk-Tooltip',
 })
@@ -30,29 +31,55 @@ const props = withDefaults(defineProps<TooltipProps>(), {
   placement: 'bottom',
   trigger: 'hover',
   transtition: 'fade',
+  opendelay: 0,
+  closedelay: 0,
 })
 const emit = defineEmits<TooltipsEmits>()
 let events: Record<string, any> = reactive({})
 let outerevents: Record<string, any> = reactive({})
+let opentime = 0
+let closetime = 0
 //点击触发弹层显示与隐藏
 const togglePopper = () => {
-  isopen.value = !isopen.value
-  emit('visible-change', isopen.value)
+  if (!isopen.value) {
+    openDebounceFinal()
+    emit('visible-change', false)
+  } else {
+    closeDebounceFinal()
+    emit('visible-change', true)
+  }
 }
+
 const open = () => {
+  opentime++
+  console.log(`open开始第${opentime}次数`)
   isopen.value = true
   emit('visible-change', true)
 }
 const close = () => {
+  closetime++
+  console.log(`close开始第${closetime}次数`)
   isopen.value = false
   emit('visible-change', false)
+}
+//在hover状态下，多次触发事件，需要用debounce进行防抖操作
+const openDebounce = debounce(open, props.opendelay)
+const closeDebounce = debounce(close, props.closedelay)
+
+const openDebounceFinal = () => {
+  closeDebounce.cancel()
+  openDebounce()
+}
+const closeDebounceFinal = () => {
+  openDebounce.cancel()
+  closeDebounce()
 }
 const attachEvents = () => {
   if (props.trigger === 'click') {
     events['click'] = togglePopper
   } else if (props.trigger === 'hover') {
-    outerevents['mouseenter'] = open
-    outerevents['mouseleave'] = close
+    outerevents['mouseenter'] = openDebounceFinal
+    outerevents['mouseleave'] = closeDebounceFinal
   }
 }
 onMounted(() => {
@@ -98,8 +125,8 @@ watch(
   },
 )
 defineExpose({
-  show: open,
-  hide: close,
+  show: openDebounceFinal,
+  hide: closeDebounceFinal,
 })
 onUnmounted(() => {
   popperInstance?.destroy()
