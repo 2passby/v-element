@@ -3,12 +3,20 @@ import Button from './components/Button/Button.vue'
 import Collapse from './components/Collapse/Collapse.vue'
 import CollapseItem from './components/Collapse/CollapseItem.vue'
 import Icon from './components/Icon/Icon.vue'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, h } from 'vue'
 import type { Placement, Options } from '@popperjs/core'
 import { bottom, createPopper } from '@popperjs/core'
 import type { Instance } from '@popperjs/core'
 import Tooltip from './components/Tooltip/Tooltip.vue'
 import type { TooltipInstance } from '@/components/Tooltip/types'
+import Dropdown from './components/Dropdown/Dropdown.vue'
+import type { MenuOptions } from './components/Dropdown/types'
+const option: MenuOptions[] = [
+  { key: 1, label: h('b', 'this-is-bold') },
+  { key: 2, label: 'item2', disabled: true },
+  { key: 3, label: 'item3', divided: true },
+  { key: 4, label: 'item4' },
+]
 //测试tooltip popper显示
 let tooltipRef = ref<TooltipInstance | null>()
 const show = () => {
@@ -71,6 +79,10 @@ let popperoptions: Partial<Options> = { placement: 'right-end', strategy: 'fixed
   </Tooltip>
   <Button type="primary" @click="show" class="show_btn">点我展示tooltip</Button>
   <Button type="success" @click="hide">点我隐藏tooltip</Button>
+  <h1>dropdown组件测试</h1>
+  <Dropdown placement="right" :menu-options="option" trigger="click">
+    <img src="./assets/logo.svg" alt="" class="logo" />
+  </Dropdown>
   <h1>Icon组件测试</h1>
   <Icon icon="arrow-up" size="2xl" type="primary" color="red" spin></Icon>
   <h1>非plain默认-button组件测试</h1>
