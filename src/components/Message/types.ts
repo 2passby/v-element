@@ -1,3 +1,4 @@
+import { omit } from 'lodash-es'
 import type { VNode } from 'vue'
 
 export interface MessageProps {
@@ -5,4 +6,7 @@ export interface MessageProps {
   duration?: number
   showClose?: boolean
   type?: 'success' | 'info' | 'warning' | 'error'
+  onDestory: () => void
 }
+
+export type createMessageProps = Omit<MessageProps, 'onDestory'>

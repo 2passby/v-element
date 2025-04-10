@@ -2,7 +2,7 @@
 import type { MessageProps } from './types'
 import RenderVnode from '../common/RenderVnode'
 import Icon from '../Icon/Icon.vue'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 const props = withDefaults(defineProps<MessageProps>(), {
   duration: 3000,
   type: 'info',
@@ -18,6 +18,12 @@ onMounted(() => {
   visible.value = true
   console.log('1')
   startTimer()
+})
+//监控visible 销毁节点
+watch(visible, (newvalue) => {
+  if (!newvalue) {
+    props.onDestory()
+  }
 })
 </script>
 <template>

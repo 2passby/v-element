@@ -12,6 +12,7 @@ import type { TooltipInstance } from '@/components/Tooltip/types'
 import Dropdown from './components/Dropdown/Dropdown.vue'
 import type { MenuOptions } from './components/Dropdown/types'
 import Message from './components/Message/Message.vue'
+import { createMessage } from './components/Message/method'
 const option: MenuOptions[] = [
   { key: 1, label: h('b', 'this-is-bold') },
   { key: 2, label: 'item2', disabled: true },
@@ -38,11 +39,16 @@ let Collapse_openValues = ref(['a'])
 
 //测试tooltip是否支持options
 let popperoptions: Partial<Options> = { placement: 'right-end', strategy: 'fixed' }
+
+onMounted(() => {
+  createMessage({ message: 'hello-world', duration: 0 })
+  createMessage({ message: 'hello-world-again' })
+})
 </script>
 
 <template>
   <h1>Message组件测试</h1>
-  <Message message="xinxi" show-close :duration="0"></Message>
+  <!-- <Message message="xinxi" show-close :duration="0"></Message> -->
   <h1>Tooltip组件测试</h1>
   <Tooltip
     content="hello tooltip"
