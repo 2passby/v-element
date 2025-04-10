@@ -6,7 +6,6 @@ import Icon from './components/Icon/Icon.vue'
 import { ref, onMounted, h } from 'vue'
 import type { Placement, Options } from '@popperjs/core'
 import { bottom, createPopper } from '@popperjs/core'
-import type { Instance } from '@popperjs/core'
 import Tooltip from './components/Tooltip/Tooltip.vue'
 import type { TooltipInstance } from '@/components/Tooltip/types'
 import Dropdown from './components/Dropdown/Dropdown.vue'
@@ -41,9 +40,12 @@ let Collapse_openValues = ref(['a'])
 let popperoptions: Partial<Options> = { placement: 'right-end', strategy: 'fixed' }
 
 onMounted(() => {
-  createMessage({ message: 'hello-world', duration: 0 })
-  createMessage({ message: 'hello-world-again', duration: 0 })
-  createMessage({ message: 'hello-world-again', duration: 0 })
+  const instanceMessage = createMessage({ message: 'hello-world', duration: 0 })
+  createMessage({ message: 'hello-world-again' })
+  createMessage({ message: 'hello-world-again-three' })
+  setTimeout(() => {
+    instanceMessage.destory()
+  }, 2000)
 })
 </script>
 

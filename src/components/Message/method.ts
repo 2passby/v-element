@@ -1,12 +1,13 @@
-import { render, h } from 'vue'
+import { render, h, reactive } from 'vue'
 import type { MessageProps, createMessageProps, MessageContext } from './types'
+import useZIndex from '@/hooks/UseZindex'
 import Message from './Message.vue'
 let seed = 1
-const instances: MessageContext[] = []
+const instances: MessageContext[] = reactive([])
 export const createMessage = (props: createMessageProps) => {
   const id = `message_${seed++}`
   const container = document.createElement('div')
-
+  const { nextIndex } = useZIndex()
   const destory = () => {
     const idx = instances.findIndex((instance) => instance.id === id)
     if (idx != -1) {
@@ -14,8 +15,17 @@ export const createMessage = (props: createMessageProps) => {
     }
     render(null, container)
   }
+  //实现手动调用删除函数
+  const manualDestory = () => {
+    const instance = instances.find((instance) => instance.id === id)
+    if (instance) {
+      instance.vm.exposed!.visible.value = false
+    }
+  }
   const newProps = {
     ...props,
+    id,
+    zIndex: nextIndex(),
     onDestory: destory,
   }
   const vnode = h(Message, newProps)
@@ -27,6 +37,8 @@ export const createMessage = (props: createMessageProps) => {
     id,
     vnode,
     props: newProps,
+    vm: vnode.component!,
+    destory: manualDestory,
   }
   instances.push(instance)
   return instance
@@ -34,4 +46,16 @@ export const createMessage = (props: createMessageProps) => {
 //得到message实例数组的最后一项
 export const getLastInstance = () => {
   return instances.at(-1)
+}
+
+//获取上一个实例的bottomoffset
+
+export const getLastBottomOffset = (id: string) => {
+  const idx = instances.findIndex((instance) => instance.id === id)
+  console.log('idx', idx)
+  if (idx <= 0) return 0
+  else {
+    const prev = instances[idx - 1]
+    return prev.vm.exposed!.bottomOffset.value
+  }
 }
