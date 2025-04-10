@@ -3,10 +3,13 @@ import type { MessageProps } from './types'
 import RenderVnode from '../common/RenderVnode'
 import Icon from '../Icon/Icon.vue'
 import { ref, onMounted, watch } from 'vue'
+import { getLastInstance } from '@/components/Message/method'
 const props = withDefaults(defineProps<MessageProps>(), {
   duration: 3000,
   type: 'info',
 })
+const prevInstance = getLastInstance()
+console.log(prevInstance)
 const visible = ref(false)
 function startTimer() {
   if (props.duration === 0) return
@@ -16,7 +19,7 @@ function startTimer() {
 }
 onMounted(() => {
   visible.value = true
-  console.log('1')
+  //duration时间后，隐藏dom节点
   startTimer()
 })
 //监控visible 销毁节点

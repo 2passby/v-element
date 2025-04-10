@@ -42,7 +42,8 @@ let popperoptions: Partial<Options> = { placement: 'right-end', strategy: 'fixed
 
 onMounted(() => {
   createMessage({ message: 'hello-world', duration: 0 })
-  createMessage({ message: 'hello-world-again' })
+  createMessage({ message: 'hello-world-again', duration: 0 })
+  createMessage({ message: 'hello-world-again', duration: 0 })
 })
 </script>
 
