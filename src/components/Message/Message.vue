@@ -1,0 +1,49 @@
+<script setup lang="ts">
+import type { MessageProps } from './types'
+import RenderVnode from '../common/RenderVnode'
+import Icon from '../Icon/Icon.vue'
+import { ref, onMounted } from 'vue'
+const props = withDefaults(defineProps<MessageProps>(), {
+  duration: 3000,
+  type: 'info',
+})
+const visible = ref(false)
+function startTimer() {
+  if (props.duration === 0) return
+  setTimeout(() => {
+    visible.value = false
+  }, props.duration)
+}
+onMounted(() => {
+  visible.value = true
+  console.log('1')
+  startTimer()
+})
+</script>
+<template>
+  <div
+    class="vk-message"
+    role="alert"
+    v-show="visible"
+    :class="{ [`vk-message--${type}`]: type, 'is-close': showClose }"
+  >
+    <div class="vk-message__content">
+      <slot>
+        <RenderVnode v-if="message" :v-node="message"></RenderVnode>
+      </slot>
+    </div>
+    <div class="vk-message__close" v-if="showClose">
+      <Icon icon="xmark" @click.stop="visible = false"></Icon>
+    </div>
+  </div>
+</template>
+<style>
+.vk-message {
+  width: max-content;
+  position: fixed;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  border: 1px solid blue;
+}
+</style>
