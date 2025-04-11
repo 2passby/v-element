@@ -40,12 +40,18 @@ let Collapse_openValues = ref(['a'])
 let popperoptions: Partial<Options> = { placement: 'right-end', strategy: 'fixed' }
 
 onMounted(() => {
-  const instanceMessage = createMessage({ message: 'hello-world', duration: 0 })
-  createMessage({ message: 'hello-world-again' })
-  createMessage({ message: 'hello-world-again-three' })
-  setTimeout(() => {
-    instanceMessage.destory()
-  }, 2000)
+  const instanceMessage = createMessage({
+    message: 'hello-world',
+    duration: 0,
+    showClose: true,
+    type: 'success',
+  })
+  createMessage({ message: 'hello-world-again', showClose: true, type: 'warning' })
+  createMessage({ message: 'hello-world-again-three', showClose: true })
+  createMessage({ message: 'hello-world-again-three', showClose: true, type: 'danger' })
+  // setTimeout(() => {
+  //   instanceMessage.destory()
+  // }, 2000)
 })
 </script>
 

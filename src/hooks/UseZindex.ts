@@ -12,6 +12,7 @@ const useZIndex = (initialValue = 2000) => {
   return {
     currentZindex,
     nextIndex,
+    initialZindex,
   }
 }
 export default useZIndex

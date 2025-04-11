@@ -49,7 +49,7 @@ defineExpose({
               :id="`dropdown-item-${item.key}`"
               @click="itemClick(item)"
             >
-              <!-- 渲染节点支持解析html语法 -->
+              <!-- 渲染节点支持解析html语法，引入了renderVnode组件 -->
               <RenderVnode :vNode="item.label"></RenderVnode>
             </li>
           </template>

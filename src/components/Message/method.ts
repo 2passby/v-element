@@ -52,7 +52,7 @@ export const getLastInstance = () => {
 
 export const getLastBottomOffset = (id: string) => {
   const idx = instances.findIndex((instance) => instance.id === id)
-  console.log('idx', idx)
+  // console.log('idx', idx)
   if (idx <= 0) return 0
   else {
     const prev = instances[idx - 1]
