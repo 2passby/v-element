@@ -3,23 +3,22 @@
 layout: home
 
 hero:
-  name: "My Awesome Project"
-  text: "A VitePress Site"
-  tagline: My great project tagline
+  name: 'V-Element组件库'
+  text: '开箱即用Vue3组件库'
+  tagline: 提供10余种通用组件
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: 前往体验
+      link: /components/button.html
     - theme: alt
       text: API Examples
       link: /api-examples
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: 可变风格
+    details: 可自定义组件样式风格
+  - title: 接口丰富
+    details: 提供常见组件的多种接口使用
+  - title: 仿Element-plus
+    details: 追随一线组件库规范设计
 ---
-

@@ -54,11 +54,7 @@
     background-color: var(--vk-button-active-bg-color);
     outline: none;
   }
-  &.is-plain {
-    --vk-button-hover-text-color: var(--vk-text-color-primary);
-    --vk-button-hover-bg-color: var(--vk-fill-color-blank);
-    --vk-button-hover-border-color: var(--vk-color-primary);
-  }
+
   /*round*/
   &.is-round {
     border-radius: var(--vk-border-radius-round);
@@ -83,6 +79,11 @@
   }
   [class*='vk-icon'] + span {
     margin-left: 6px;
+  }
+  &.is-plain {
+    --vk-button-hover-text-color: var(--vk-text-color-primary);
+    --vk-button-hover-bg-color: var(--vk-fill-color-blank);
+    --vk-button-hover-border-color: var(--vk-color-primary);
   }
 }
 @each $val in primary, success, warning, info, danger {

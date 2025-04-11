@@ -1,9 +1,11 @@
 import { defineConfig } from 'vitepress'
+import { containerPreview, componentPreview } from '@vitepress-demo-preview/plugin'
 import path from 'path'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: 'My Awesome Project',
-  description: 'A VitePress Site',
+  title: 'V-Element组件库',
+  description: '简约Vue3-组件库',
+
   vite: {
     resolve: {
       alias: {
@@ -11,7 +13,12 @@ export default defineConfig({
       },
     },
   },
-
+  markdown: {
+    config(md) {
+      md.use(containerPreview)
+      md.use(componentPreview)
+    },
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -20,13 +27,6 @@ export default defineConfig({
     ],
 
     sidebar: [
-      {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' },
-        ],
-      },
       {
         text: 'Basic',
         items: [{ text: 'Button', link: '/components/button' }],
