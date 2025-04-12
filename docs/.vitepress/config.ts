@@ -29,7 +29,10 @@ export default defineConfig({
     sidebar: [
       {
         text: 'Basic',
-        items: [{ text: 'Button', link: '/components/button' }],
+        items: [
+          { text: 'Button按钮', link: '/components/button' },
+          { text: 'Input文字输入', link: '/components/input' },
+        ],
       },
     ],
 

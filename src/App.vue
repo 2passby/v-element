@@ -12,6 +12,7 @@ import Dropdown from './components/Dropdown/Dropdown.vue'
 import type { MenuOptions } from './components/Dropdown/types'
 import Message from './components/Message/Message.vue'
 import { createMessage } from './components/Message/method'
+import Input from './components/Input/Input.vue'
 const option: MenuOptions[] = [
   { key: 1, label: h('b', 'this-is-bold') },
   { key: 2, label: 'item2', disabled: true },
@@ -53,6 +54,11 @@ onMounted(() => {
   //   instanceMessage.destory()
   // }, 2000)
 })
+const inputValue = ref('传入响应式得值')
+const COMref = ref<any>()
+// onMounted(() => {
+//   console.log(COMref.value.ref)
+// })
 </script>
 
 <template>
@@ -152,6 +158,19 @@ onMounted(() => {
     </CollapseItem>
     <!-- {{ Collapse_openValues }} -->
   </Collapse>
+  <Input
+    size="small"
+    type="text"
+    v-model="inputValue"
+    clearable
+    showPassword
+    @clear="console.log('input被清空')"
+    ref="COMref"
+  >
+    <template #prepend>123</template>
+
+    <template #append>456</template>
+  </Input>
 </template>
 
 <style scoped>
