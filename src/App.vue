@@ -14,7 +14,7 @@ import Message from './components/Message/Message.vue'
 import { createMessage } from './components/Message/method'
 import Input from './components/Input/Input.vue'
 import Switch from './components/Switch/Switch.vue'
-const switchvalue = ref(false)
+const switchvalue = ref('unactive')
 const option: MenuOptions[] = [
   { key: 1, label: h('b', 'this-is-bold') },
   { key: 2, label: 'item2', disabled: true },
@@ -65,7 +65,15 @@ const COMref = ref<any>()
 
 <template>
   <h1>switch组件测试</h1>
-  <Switch v-model="switchvalue"></Switch>
+  <Switch
+    v-model="switchvalue"
+    active-value="active"
+    inactive-value="unactive"
+    active-text="on"
+    inactive-text="off"
+    disabled
+    @change="console.log('1', $event)"
+  ></Switch>
   <h1>Message组件测试</h1>
   <!-- <Message message="xinxi" show-close :duration="0"></Message> -->
   <h1>Tooltip组件测试</h1>

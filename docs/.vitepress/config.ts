@@ -32,6 +32,7 @@ export default defineConfig({
         items: [
           { text: 'Button按钮', link: '/components/button' },
           { text: 'Input文字输入', link: '/components/input' },
+          { text: 'Switch切换按钮', link: '/components/switch' },
         ],
       },
     ],

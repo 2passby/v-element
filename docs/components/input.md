@@ -1,6 +1,6 @@
 ---
-title: Button|V-Element
-description: Button 组件的文档
+title: Input|V-Element
+description: Input 组件的文档
 ---
 
 # input输入
