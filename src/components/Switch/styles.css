@@ -1,0 +1,9 @@
+.vk-switch {
+  --vk-switch-on-color: var(--vk-color-primary);
+  --vk-switch-off-color: var(--vk-border-color);
+  --vk-switch-on-border-color: var(--vk-color-primary);
+  --vk-switch-on-border-color: var(--vk-border-color);
+}
+
+.vk-switch {
+}
