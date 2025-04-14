@@ -14,6 +14,7 @@ import Message from './components/Message/Message.vue'
 import { createMessage } from './components/Message/method'
 import Input from './components/Input/Input.vue'
 import Switch from './components/Switch/Switch.vue'
+import Select from './components/Select/Select.vue'
 const switchvalue = ref('unactive')
 const option: MenuOptions[] = [
   { key: 1, label: h('b', 'this-is-bold') },
@@ -61,9 +62,17 @@ const COMref = ref<any>()
 // onMounted(() => {
 //   console.log(COMref.value.ref)
 // })
+const test = ref('')
+const options2 = [
+  { label: '123', value: '1' },
+  { label: 'xyz', value: '2' },
+  { label: 'opq', value: '13' },
+]
 </script>
 
 <template>
+  <h1>select组件测试</h1>
+  <Select v-model="test" :options="options2"></Select>
   <h1>switch组件测试</h1>
   <Switch
     v-model="switchvalue"
