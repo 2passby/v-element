@@ -17,6 +17,9 @@ UseClickOutside(popperContainerNode, () => {
   if (props.trigger === 'click' && isopen.value === true && !props.manual) {
     isopen.value = false
   }
+  if (isopen.value) {
+    emit('click-outside', true)
+  }
 })
 const popperOptions = computed(() => {
   return {
@@ -52,13 +55,13 @@ const togglePopper = () => {
 
 const open = () => {
   opentime++
-  console.log(`open开始第${opentime}次数`)
+  // console.log(`open开始第${opentime}次数`)
   isopen.value = true
   emit('visible-change', true)
 }
 const close = () => {
   closetime++
-  console.log(`close开始第${closetime}次数`)
+  // console.log(`close开始第${closetime}次数`)
   isopen.value = false
   emit('visible-change', false)
 }

@@ -1,6 +1,7 @@
+export type valuetype = string | number
 export interface SelectOptions {
   label: string
-  value: string
+  value: valuetype
   disabled?: boolean
 }
 
@@ -13,7 +14,12 @@ export interface SelectProps {
 }
 
 export interface SelectEmits {
-  (e: 'change', value: string): void
-  (e: 'update:modelValue', value: string): void
+  (e: 'change', value: valuetype): void
+  (e: 'update:modelValue', value: valuetype): void
   (e: 'visible-change', value: boolean): void
+}
+
+export interface SelectStates {
+  inputValue: valuetype
+  selectOptions: undefined | SelectOptions
 }

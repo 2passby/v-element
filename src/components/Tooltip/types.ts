@@ -13,6 +13,7 @@ export interface TooltipProps {
 // 声明emits触发事件类型,ts函数签名类型声明
 export interface TooltipsEmits {
   (e: 'visible-change', value: boolean): void
+  (e: 'click-outside', value: boolean): void
 }
 
 //声明tooltip向外暴漏expose的方法，ts组件实例对象的方法声明

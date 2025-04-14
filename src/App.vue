@@ -62,11 +62,12 @@ const COMref = ref<any>()
 // onMounted(() => {
 //   console.log(COMref.value.ref)
 // })
-const test = ref('')
+const test = ref('1')
 const options2 = [
-  { label: '123', value: '1' },
-  { label: 'xyz', value: '2' },
-  { label: 'opq', value: '13' },
+  { label: '123', value: 1 },
+  { label: 'xyz', value: 2 },
+  { label: 'opq', value: 3 },
+  { label: 'wax', value: 4, disabled: true },
 ]
 </script>
 
