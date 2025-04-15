@@ -3,6 +3,7 @@ import Button from './components/Button/Button.vue'
 import Collapse from './components/Collapse/Collapse.vue'
 import CollapseItem from './components/Collapse/CollapseItem.vue'
 import Icon from './components/Icon/Icon.vue'
+import axios from 'axios'
 import { ref, onMounted, h } from 'vue'
 import type { Placement, Options } from '@popperjs/core'
 import { bottom, createPopper } from '@popperjs/core'
@@ -63,17 +64,46 @@ const COMref = ref<any>()
 //   console.log(COMref.value.ref)
 // })
 const test = ref('1')
+const test2 = ref('')
 const options2 = [
   { label: '123', value: 1 },
   { label: 'xyz', value: 2 },
   { label: 'opq', value: 3 },
   { label: 'wax', value: 4, disabled: true },
 ]
+const customRender = (option: any) => {
+  return h('div', { className: 'xyz' }, [h('b', option.label), h('span', option.value)])
+}
+const handleRemote = (query: any) => {
+  if (!query) return Promise.resolve([])
+  else {
+    //axios在返回值外包装了一层data
+    return axios.get(`https://api.github.com/search/repositories?q=${query}`).then((res: any) => {
+      return res.data.items
+        .slice(0, 10)
+        .map((item: any) => ({ label: item.name, value: item.node_id }))
+    })
+  }
+}
 </script>
 
 <template>
   <h1>select组件测试</h1>
-  <Select v-model="test" :options="options2"></Select>
+  <Select
+    v-model="test"
+    :options="options2"
+    clearable
+    placeholder="还没有选择任何属性呢"
+    :render-label="customRender"
+    filterable
+  ></Select>
+  <Select
+    v-model="test2"
+    remote
+    placeholder="远程请求"
+    :remote-method="handleRemote"
+    filterable
+  ></Select>
   <h1>switch组件测试</h1>
   <Switch
     v-model="switchvalue"
@@ -195,7 +225,7 @@ const options2 = [
   </Input>
 </template>
 
-<style scoped>
+<style>
 .tool {
   margin-right: 200px;
 }
@@ -209,5 +239,10 @@ header {
 .logo {
   width: 50px;
   height: 50px;
+}
+.vk-select__menu-item .xyz {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>

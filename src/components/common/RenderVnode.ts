@@ -3,7 +3,7 @@ import { defineComponent } from 'vue'
 const RenderVnode = defineComponent({
   props: {
     vNode: {
-      type: [String, Object],
+      type: [Number, String, Object],
       required: true,
     },
   },

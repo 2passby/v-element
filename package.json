@@ -24,6 +24,7 @@
     "@types/lodash-es": "^4.17.12",
     "@vitepress-demo-preview/component": "^2.3.2",
     "@vitepress-demo-preview/plugin": "^1.4.0",
+    "axios": "^1.8.4",
     "lodash-es": "^4.17.21",
     "postcss-each": "^1.1.0",
     "postcss-nested": "^7.0.2",
