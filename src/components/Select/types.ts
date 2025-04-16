@@ -41,4 +41,5 @@ export interface SelectStates {
   selectOptions: undefined | SelectOptions
   mousehover: boolean
   loading: boolean
+  highlightIndex: number
 }

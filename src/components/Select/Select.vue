@@ -28,6 +28,7 @@ const states = reactive<SelectStates>({
   selectOptions: initialOption,
   mousehover: false,
   loading: false,
+  highlightIndex: -1,
 })
 const tooltipRef = ref<TooltipInstance>()
 const isDropdownShow = ref(false)
@@ -80,6 +81,7 @@ const generateFilterOption = async (searchValue: string) => {
   } else {
     filteredOptions.value = props.options.filter((option) => option.label.includes(searchValue))
   }
+  states.highlightIndex = -1
 }
 const onFilter = () => {
   generateFilterOption(states.inputValue)
@@ -101,6 +103,7 @@ const controlDropdown = (show: boolean) => {
     }
     tooltipRef.value?.hide()
   }
+  states.highlightIndex = -1
   isDropdownShow.value = show
   emits('visible-change', show)
 }
@@ -134,6 +137,54 @@ const onClear = () => {
   emits('update:modelValue', '')
   emits('clear')
 }
+const handleKeyDown = (e: KeyboardEvent) => {
+  switch (e.key) {
+    case 'Enter':
+      if (isDropdownShow.value) {
+        if (states.highlightIndex !== -1 && filteredOptions.value[states.highlightIndex]) {
+          itemSelect(filteredOptions.value[states.highlightIndex])
+          controlDropdown(false)
+        } else {
+          controlDropdown(false)
+        }
+      } else {
+        controlDropdown(true)
+      }
+      break
+    case 'Escape':
+      controlDropdown(false)
+      break
+    case 'ArrowUp':
+      // 禁止默认行为防止滚动条滚动
+      e.preventDefault()
+      console.log('arrow-up')
+      if (filteredOptions.value.length > 0) {
+        if (states.highlightIndex === -1 || states.highlightIndex === 0) {
+          states.highlightIndex = filteredOptions.value.length - 1
+        } else {
+          states.highlightIndex--
+        }
+      }
+      break
+    case 'ArrowDown':
+      // 禁止默认行为防止滚动条滚动
+      e.preventDefault()
+      console.log('arrow-down')
+      if (filteredOptions.value.length > 0) {
+        if (
+          states.highlightIndex === filteredOptions.value.length - 1 ||
+          states.highlightIndex === -1
+        ) {
+          states.highlightIndex = 0
+        } else {
+          states.highlightIndex++
+        }
+      }
+      break
+    default:
+      break
+  }
+}
 </script>
 
 <template>
@@ -157,6 +208,7 @@ const onClear = () => {
         :placeholder="filterPlaceholder"
         :readonly="!filterable || !isDropdownShow"
         @input="onFilterDebounce"
+        @keydown="handleKeyDown"
         ref="inputRef"
       >
         <template #suffix>
@@ -188,6 +240,7 @@ const onClear = () => {
               :class="{
                 'is-disabled': item.disabled,
                 'is-selected': states.selectOptions?.value === item.value,
+                'is-highlighted': states.highlightIndex === index,
               }"
               :id="`select-item-${item.value}`"
               @click.stop="itemSelect(item)"
