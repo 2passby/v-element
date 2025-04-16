@@ -33,6 +33,7 @@ export default defineConfig({
           { text: 'Button按钮', link: '/components/button' },
           { text: 'Input文字输入', link: '/components/input' },
           { text: 'Switch切换按钮', link: '/components/switch' },
+          { text: 'Select下拉选择框', link: '/components/select' },
         ],
       },
     ],

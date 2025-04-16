@@ -10,7 +10,7 @@ import Icon from '../Icon/Icon.vue'
 import { isFunction, debounce } from 'lodash-es'
 
 const findOption = (value: valuetype) => {
-  const option = props.options.find((item) => (item.value = value))
+  const option = props.options.find((item) => item.value === value)
   return option
 }
 defineOptions({
@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<SelectProps>(), {
 })
 const emits = defineEmits<SelectEmits>()
 const initialOption = findOption(props.modelValue)
-const innerValue = ref(initialOption ? initialOption.label : '')
+
 const states = reactive<SelectStates>({
   inputValue: initialOption ? initialOption.label : '',
   selectOptions: initialOption,
