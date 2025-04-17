@@ -42,12 +42,27 @@ const itemRules = computed(() => {
     return []
   }
 })
-const validate = () => {
+const getTriggeredRules = (trigger: string) => {
+  const rules = itemRules.value
+  if (rules) {
+    return rules.filter((rule) => {
+      if (!rule.trigger || !trigger) return true
+      return rule.trigger && rule.trigger === trigger
+    })
+  } else {
+    return []
+  }
+}
+const validate = (trigger?: string) => {
   // props.prop传入要进行检验的字段
   const modelName = props.prop
+  if (!trigger) return true
+  if (trigger.length === 0) return true
+  const TriggerRules = getTriggeredRules(trigger)
+
   if (modelName) {
     // 新建一个关于该字段 与 检验方法的validator
-    const validator = new Schema({ [modelName]: itemRules.value })
+    const validator = new Schema({ [modelName]: TriggerRules })
     validateStatus.loading = true
     // 利用validator中的modelname字段对input中的值进行检验，返回promise
     validator
@@ -94,6 +109,5 @@ provide(formItemContextKey, context)
       </div>
     </div>
     {{ innerValue }} ---{{ itemRules }}
-    <button @click.prevent="validate">validate</button>
   </div>
 </template>

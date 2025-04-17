@@ -102,7 +102,10 @@ const formValue2 = reactive({
   account: '',
 })
 const rules: Record<string, RuleItem[]> = {
-  email: [{ type: 'email', required: true, trigger: 'blur' }],
+  email: [
+    { type: 'email', required: true, trigger: 'blur' },
+    { type: 'string', required: true, trigger: 'input' },
+  ],
   password: [{ type: 'string', required: true, trigger: 'blur' }],
   account: [{ type: 'string', required: true, trigger: 'blur', min: 5, max: 8 }],
 }
@@ -123,7 +126,7 @@ const rules: Record<string, RuleItem[]> = {
       </FormItem>
       <FormItem label="account" prop="account">
         <template #default="slotprops">
-          <input type="text" v-model="formValue.account" @blur="slotprops.validate" />
+          <input type="text" v-model="formValue.account" />
         </template>
       </FormItem>
       <div class="submit-form">

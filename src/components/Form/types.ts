@@ -13,7 +13,7 @@ export interface FormProps {
 export interface FromContext extends FormProps {}
 
 export interface FormItemContext {
-  validate: () => any
+  validate: (trigger?: string) => any
 }
 export interface FormValidateFailure {
   errors: ValidateError[]

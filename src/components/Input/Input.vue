@@ -27,17 +27,19 @@ const showPasswordArea = computed(() => {
   return !props.disabled && props.showPassword && !!innerValue.value
 })
 const formItemContext = inject(formItemContextKey)
-const runValidation = () => {
-  formItemContext?.validate()
+const runValidation = (trigger?: string) => {
+  formItemContext?.validate(trigger)
 }
 // v-model 其实是 :modelValue 与 @update:modelValue = modelValue = $event得缩写，我们可以在子组件中原生的input输入内容变化时，发送update:modelValue到父组件，携带最新的值，此时父组件利用v-model语法糖，自动绑定了update:modelValue 事件，就可以实现父组件的双向数据绑定
 const handleInput = () => {
   emits('update:modelValue', innerValue.value)
   emits('input', innerValue.value)
+  runValidation('input')
 }
 const handleChange = () => {
   emits('update:modelValue', innerValue.value)
   emits('change', innerValue.value)
+  runValidation('change')
 }
 const handelFocus = (e: FocusEvent) => {
   isFocus.value = true
@@ -46,7 +48,7 @@ const handelFocus = (e: FocusEvent) => {
 const handelBlur = (e: FocusEvent) => {
   isFocus.value = false
   // console.log('blur触发')
-  runValidation()
+  runValidation('blur')
   emits('blur', e)
 }
 const clear = async () => {
