@@ -16,6 +16,8 @@ import { createMessage } from './components/Message/method'
 import Input from './components/Input/Input.vue'
 import Switch from './components/Switch/Switch.vue'
 import Select from './components/Select/Select.vue'
+import Form from './components/Form/Form.vue'
+import FormItem from './components/Form/FormItem.vue'
 const switchvalue = ref('unactive')
 const option: MenuOptions[] = [
   { key: 1, label: h('b', 'this-is-bold') },
@@ -85,9 +87,29 @@ const handleRemote = (query: any) => {
     })
   }
 }
+const formvalue1 = ref()
+const formvalue2 = ref()
 </script>
 
 <template>
+  <h1>From组件测试</h1>
+  <div class="form-test">
+    <Form>
+      <FormItem label="account">
+        <Input v-model="formvalue1"></Input>
+      </FormItem>
+      <FormItem label="pasword">
+        <template #label="slotprops">
+          <b> {{ slotprops.label }}</b>
+        </template>
+        <Input v-model="formvalue2"></Input>
+      </FormItem>
+      <div class="submit-form">
+        <Button type="primary">提交</Button>
+        <Button type="danger">重置</Button>
+      </div>
+    </Form>
+  </div>
   <h1>select组件测试</h1>
   <Select
     v-model="test"
@@ -226,6 +248,13 @@ const handleRemote = (query: any) => {
 </template>
 
 <style>
+.submit-form {
+  margin-top: 15px;
+}
+.form-test {
+  width: 200px;
+  height: 200px;
+}
 .tool {
   margin-right: 200px;
 }
