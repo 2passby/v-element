@@ -4,7 +4,7 @@ import Collapse from './components/Collapse/Collapse.vue'
 import CollapseItem from './components/Collapse/CollapseItem.vue'
 import Icon from './components/Icon/Icon.vue'
 import axios from 'axios'
-import { ref, onMounted, h } from 'vue'
+import { ref, onMounted, h, reactive } from 'vue'
 import type { Placement, Options } from '@popperjs/core'
 import { bottom, createPopper } from '@popperjs/core'
 import Tooltip from './components/Tooltip/Tooltip.vue'
@@ -18,6 +18,7 @@ import Switch from './components/Switch/Switch.vue'
 import Select from './components/Select/Select.vue'
 import Form from './components/Form/Form.vue'
 import FormItem from './components/Form/FormItem.vue'
+import type { RuleItem, RuleType } from 'async-validator'
 const switchvalue = ref('unactive')
 const option: MenuOptions[] = [
   { key: 1, label: h('b', 'this-is-bold') },
@@ -89,26 +90,73 @@ const handleRemote = (query: any) => {
 }
 const formvalue1 = ref()
 const formvalue2 = ref()
+
+const formValue = reactive({
+  email: '',
+  password: '',
+  account: '',
+})
+const formValue2 = reactive({
+  email: '',
+  password: '',
+  account: '',
+})
+const rules: Record<string, RuleItem[]> = {
+  email: [{ type: 'email', required: true, trigger: 'blur' }],
+  password: [{ type: 'string', required: true, trigger: 'blur' }],
+  account: [{ type: 'string', required: true, trigger: 'blur', min: 5, max: 8 }],
+}
 </script>
 
 <template>
   <h1>From组件测试</h1>
   <div class="form-test">
-    <Form>
-      <FormItem label="account">
-        <Input v-model="formvalue1"></Input>
+    <Form :model="formValue" :rules="rules">
+      <FormItem label="email" prop="email">
+        <Input v-model="formValue.email"></Input>
       </FormItem>
-      <FormItem label="pasword">
+      <FormItem label="password" prop="password">
         <template #label="slotprops">
           <b> {{ slotprops.label }}</b>
         </template>
-        <Input v-model="formvalue2"></Input>
+        <Input v-model="formValue.password"></Input>
+      </FormItem>
+      <FormItem label="account" prop="account">
+        <template #default="slotprops">
+          <input type="text" v-model="formValue.account" @blur="slotprops.validate" />
+        </template>
       </FormItem>
       <div class="submit-form">
         <Button type="primary">提交</Button>
         <Button type="danger">重置</Button>
       </div>
     </Form>
+    <div>
+      form-value
+      <pre>{{ formValue }}</pre>
+    </div>
+  </div>
+  <h1>From组件测试-2</h1>
+  <div class="form-test">
+    <Form :model="formValue2" :rules="rules">
+      <FormItem label="email" prop="email">
+        <Input v-model="formValue2.email"></Input>
+      </FormItem>
+      <FormItem label="pasword" prop="password">
+        <template #label="slotprops">
+          <b> {{ slotprops.label }}</b>
+        </template>
+        <Input v-model="formValue2.password"></Input>
+      </FormItem>
+      <div class="submit-form">
+        <Button type="primary">提交</Button>
+        <Button type="danger">重置</Button>
+      </div>
+    </Form>
+    <div>
+      form-value
+      <pre>{{ formValue }}</pre>
+    </div>
   </div>
   <h1>select组件测试</h1>
   <Select
@@ -252,8 +300,8 @@ const formvalue2 = ref()
   margin-top: 15px;
 }
 .form-test {
-  width: 200px;
-  height: 200px;
+  width: 600px;
+  height: 400px;
 }
 .tool {
   margin-right: 200px;

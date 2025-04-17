@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { InputProps, InputEmits } from './types'
 import { ref, watch, computed, useAttrs, nextTick } from 'vue'
+import { formItemContextKey } from '../Form/types'
+import { inject } from 'vue'
 import Icon from '../Icon/Icon.vue'
 
 defineOptions({
@@ -24,6 +26,10 @@ const showClear = computed(() => {
 const showPasswordArea = computed(() => {
   return !props.disabled && props.showPassword && !!innerValue.value
 })
+const formItemContext = inject(formItemContextKey)
+const runValidation = () => {
+  formItemContext?.validate()
+}
 // v-model 其实是 :modelValue 与 @update:modelValue = modelValue = $event得缩写，我们可以在子组件中原生的input输入内容变化时，发送update:modelValue到父组件，携带最新的值，此时父组件利用v-model语法糖，自动绑定了update:modelValue 事件，就可以实现父组件的双向数据绑定
 const handleInput = () => {
   emits('update:modelValue', innerValue.value)
@@ -39,7 +45,8 @@ const handelFocus = (e: FocusEvent) => {
 }
 const handelBlur = (e: FocusEvent) => {
   isFocus.value = false
-  console.log('blur触发')
+  // console.log('blur触发')
+  runValidation()
   emits('blur', e)
 }
 const clear = async () => {
