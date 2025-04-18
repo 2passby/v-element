@@ -28,7 +28,7 @@ const showPasswordArea = computed(() => {
 })
 const formItemContext = inject(formItemContextKey)
 const runValidation = (trigger?: string) => {
-  formItemContext?.validate(trigger)
+  formItemContext?.validate(trigger).catch((e) => console.log(e.errors))
 }
 // v-model 其实是 :modelValue 与 @update:modelValue = modelValue = $event得缩写，我们可以在子组件中原生的input输入内容变化时，发送update:modelValue到父组件，携带最新的值，此时父组件利用v-model语法糖，自动绑定了update:modelValue 事件，就可以实现父组件的双向数据绑定
 const handleInput = () => {

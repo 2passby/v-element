@@ -1,28 +1,56 @@
-import type { InjectionKey } from 'vue'
 import type { RuleItem, ValidateError, ValidateFieldsError } from 'async-validator'
-export interface FormItemProps {
-  label: string
-  prop?: string
+import type { InjectionKey } from 'vue'
+
+export interface FormItemRule extends RuleItem {
+  trigger?: string
 }
-export type FormRules = Record<string, RuleItem[]>
+
+export type FormRules = Record<string, FormItemRule[]>
 export interface FormProps {
   model: Record<string, any>
-  rules?: Record<string, RuleItem[]>
+  rules?: FormRules
 }
 
-export interface FromContext extends FormProps {}
+export interface FormItemProps {
+  label?: string
+  prop?: string
+}
 
+export interface ValidateStatusProp {
+  state: 'init' | 'success' | 'error'
+  errorMsg: string
+  loading: boolean
+}
+
+export interface FormContext extends FormProps {
+  addField: (field: FormItemContext) => void
+  removeField: (field: FormItemContext) => void
+}
 export interface FormItemContext {
-  validate: (trigger?: string) => any
+  prop: string
+  validate: (trigger?: string) => Promise<any>
+  clearValidate(): void
+  resetField(): void
 }
-export interface FormValidateFailure {
-  errors: ValidateError[]
-  fields: ValidateFieldsError[]
+
+export const formContextKey = Symbol('formContextKey') as InjectionKey<FormContext>
+
+export const formItemContextKey = Symbol('formItemContextKey') as InjectionKey<FormItemContext>
+
+export interface FormValidateError {
+  errors: ValidateError[] | null
+  fields: ValidateFieldsError
 }
 
-// InjectionKey<FormProps> 表示 provide提供的值必须是 formprops类型
+export interface FormInstance {
+  validate: () => Promise<any>
+  resetFields: (props?: string[]) => void
+  clearValidate: (props?: string[]) => void
+}
 
-export const formContextKey: InjectionKey<FormProps> = Symbol('formContextKey')
-
-//提供给formitem中的输入组件的validate方法
-export const formItemContextKey: InjectionKey<FormItemContext> = Symbol('FormItemContext')
+export interface FormItemInstance {
+  validateStatus: ValidateStatusProp
+  validate: (trigger?: string) => Promise<any>
+  clearValidate(): void
+  resetField(): void
+}

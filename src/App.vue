@@ -90,11 +90,11 @@ const handleRemote = (query: any) => {
 }
 const formvalue1 = ref()
 const formvalue2 = ref()
-
+const formref1 = ref()
 const formValue = reactive({
   email: '',
   password: '',
-  account: '',
+  confirmPwd: '',
 })
 const formValue2 = reactive({
   email: '',
@@ -107,14 +107,29 @@ const rules: Record<string, RuleItem[]> = {
     { type: 'string', required: true, trigger: 'input' },
   ],
   password: [{ type: 'string', required: true, trigger: 'blur' }],
-  account: [{ type: 'string', required: true, trigger: 'blur', min: 5, max: 8 }],
+  confirmPwd: [
+    { type: 'string', required: true, trigger: 'blur' },
+    {
+      validator: (rule, value) => value === formValue.password,
+      trigger: 'blur',
+      message: '两次输入密码不同',
+    },
+  ],
+}
+const submit = async () => {
+  try {
+    await formref1.value.validate()
+    console.log('passed')
+  } catch (e) {
+    console.log('the errors', e)
+  }
 }
 </script>
 
 <template>
   <h1>From组件测试</h1>
   <div class="form-test">
-    <Form :model="formValue" :rules="rules">
+    <Form :model="formValue" :rules="rules" ref="formref1">
       <FormItem label="email" prop="email">
         <Input v-model="formValue.email"></Input>
       </FormItem>
@@ -124,13 +139,11 @@ const rules: Record<string, RuleItem[]> = {
         </template>
         <Input v-model="formValue.password"></Input>
       </FormItem>
-      <FormItem label="account" prop="account">
-        <template #default="slotprops">
-          <input type="text" v-model="formValue.account" />
-        </template>
+      <FormItem label="confirmPwd" prop="confirmPwd">
+        <Input v-model="formValue.confirmPwd"></Input>
       </FormItem>
       <div class="submit-form">
-        <Button type="primary">提交</Button>
+        <Button type="primary" @click.prevent="submit">提交</Button>
         <Button type="danger">重置</Button>
       </div>
     </Form>
@@ -162,6 +175,7 @@ const rules: Record<string, RuleItem[]> = {
     </div>
   </div>
   <h1>select组件测试</h1>
+
   <Select
     v-model="test"
     :options="options2"
@@ -170,6 +184,7 @@ const rules: Record<string, RuleItem[]> = {
     :render-label="customRender"
     filterable
   ></Select>
+
   <Select
     v-model="test2"
     remote
@@ -177,6 +192,7 @@ const rules: Record<string, RuleItem[]> = {
     :remote-method="handleRemote"
     filterable
   ></Select>
+
   <h1>switch组件测试</h1>
   <Switch
     v-model="switchvalue"
