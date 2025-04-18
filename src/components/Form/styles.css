@@ -40,7 +40,7 @@
     line-height: 1;
   }
 }
-
+/* 阴影实现的高亮效果好，不改变盒子大小 */
 .vk-form-item.is-error .vk-input__wrapper {
   box-shadow: 0 0 0 1px var(--vk-color-danger) inset;
 }

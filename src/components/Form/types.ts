@@ -1,6 +1,7 @@
 import type { RuleItem, ValidateError, ValidateFieldsError } from 'async-validator'
 import type { InjectionKey } from 'vue'
-
+//支持的规则类型 RuleItem,
+//提示错误的类型 ValidateError ValidateFieldsError
 export interface FormItemRule extends RuleItem {
   trigger?: string
 }

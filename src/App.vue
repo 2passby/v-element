@@ -92,8 +92,8 @@ const formvalue1 = ref()
 const formvalue2 = ref()
 const formref1 = ref()
 const formValue = reactive({
-  email: '',
-  password: '',
+  email: '7854@qq.com',
+  password: '1234',
   confirmPwd: '',
 })
 const formValue2 = reactive({
@@ -124,6 +124,10 @@ const submit = async () => {
     console.log('the errors', e)
   }
 }
+const reset = () => {
+  console.log('12')
+  formref1.value.resetFields()
+}
 </script>
 
 <template>
@@ -144,7 +148,7 @@ const submit = async () => {
       </FormItem>
       <div class="submit-form">
         <Button type="primary" @click.prevent="submit">提交</Button>
-        <Button type="danger">重置</Button>
+        <Button type="danger" @click.prevent="reset">重置</Button>
       </div>
     </Form>
     <div>

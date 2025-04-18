@@ -12,7 +12,7 @@
       <slot name="label" :label="label">{{ label }}</slot>
     </label>
     <div class="vk-form-item__content">
-      <slot :validate="validate" />
+      <slot :validate="validate"></slot>
       <div class="vk-form-item__error-msg" v-if="validateStatus.state === 'error'">
         {{ validateStatus.errorMsg }}
       </div>
@@ -47,9 +47,12 @@ const validateStatus: ValidateStatusProp = reactive({
   loading: false,
 })
 let initialValue: any = null
-/** FormItem 的值 */
+/** form传入每一项中FormItem 的值 */
+
+// 根据Formitem传入的prop值，找到对应的传入值
 const innerValue = computed(() => {
   const model = formContext?.model
+  // lodash上的方法，判断这个元素是null还是undefined
   if (model && props.prop && !isNil(model[props.prop])) {
     return model[props.prop]
   } else {
@@ -57,6 +60,7 @@ const innerValue = computed(() => {
   }
 })
 /** FormItem 的规则 */
+// 根据Formitem传入的prop值，找到对应的所有匹配规则
 const itemRules = computed(() => {
   const rules = formContext?.rules
   if (rules && props.prop && rules[props.prop]) {
@@ -109,14 +113,14 @@ const validate = async (trigger?: string) => {
       })
   }
 }
-
+// 清除表单内容
 const clearValidate = () => {
   validateStatus.state = 'init'
   validateStatus.loading = false
   validateStatus.errorMsg = ''
 }
 
-/** 重置 */
+/** 重置表单为初始值 */
 const resetField = () => {
   clearValidate()
   const model = formContext?.model
