@@ -34,6 +34,7 @@ export default defineConfig({
           { text: 'Input文字输入', link: '/components/input' },
           { text: 'Switch切换按钮', link: '/components/switch' },
           { text: 'Select下拉选择框', link: '/components/select' },
+          { text: 'Collapse折叠组件', link: '/components/collapse' },
         ],
       },
     ],
