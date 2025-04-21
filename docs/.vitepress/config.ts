@@ -35,6 +35,7 @@ export default defineConfig({
           { text: 'Switch切换按钮', link: '/components/switch' },
           { text: 'Select下拉选择框', link: '/components/select' },
           { text: 'Collapse折叠组件', link: '/components/collapse' },
+          { text: 'Form表单组件', link: '/components/form' },
         ],
       },
     ],
