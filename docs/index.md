@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: 'V-Element组件库'
+  name: 'V-Style组件库'
   text: '开箱即用Vue3组件库'
   tagline: 提供10余种通用组件
   actions:

@@ -3,7 +3,7 @@ import { containerPreview, componentPreview } from '@vitepress-demo-preview/plug
 import path from 'path'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: 'V-Element组件库',
+  title: 'V-Style组件库',
   description: '简约Vue3-组件库',
 
   vite: {
@@ -28,14 +28,23 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'Component',
+        text: '展示组件',
         items: [
           { text: 'Button按钮', link: '/components/button' },
+          { text: 'Icon图标组件', link: '/components/icon' },
+        ],
+      },
+      {
+        text: '交互组件',
+        items: [{ text: 'Collapse折叠组件', link: '/components/collapse' }],
+      },
+      {
+        text: '表单组件',
+        items: [
           { text: 'Input文字输入', link: '/components/input' },
           { text: 'Switch切换按钮', link: '/components/switch' },
-          { text: 'Select下拉选择框', link: '/components/select' },
-          { text: 'Collapse折叠组件', link: '/components/collapse' },
           { text: 'Form表单组件', link: '/components/form' },
+          { text: 'Select下拉选择框', link: '/components/select' },
         ],
       },
     ],
