@@ -36,7 +36,10 @@ export default defineConfig({
       },
       {
         text: '交互组件',
-        items: [{ text: 'Collapse折叠组件', link: '/components/collapse' }],
+        items: [
+          { text: 'Collapse折叠组件', link: '/components/collapse' },
+          { text: 'Tooltip弹层组件', link: '/components/tooltip' },
+        ],
       },
       {
         text: '表单组件',

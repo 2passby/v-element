@@ -42,7 +42,7 @@ defineExpose({
       <template #content>
         <ul class="vk-dropdown__menu">
           <template v-for="item in menuOptions" :key="item.key">
-            <li v-if="item.divided" role="separator" class="divide-placeholder"></li>
+            <li v-if="item.divided" role="separator" class="divided-placeholder"></li>
             <li
               class="vk-dropdown__item"
               :class="{ 'is-disabled': item.disabled, 'is-divided': item.divided }"

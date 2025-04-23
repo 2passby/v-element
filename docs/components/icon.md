@@ -1,5 +1,5 @@
 ---
-title: Icon
+title: Icon|V-Style
 description: Icon 组件的文档
 ---
 

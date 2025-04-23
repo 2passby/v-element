@@ -21,10 +21,19 @@ UseClickOutside(popperContainerNode, () => {
     emit('click-outside', true)
   }
 })
+// 根据展开属性优先级，后面覆盖前面
 const popperOptions = computed(() => {
   return {
     placement: props.placement,
     ...props.popperOptions,
+    modifiers: [
+      {
+        name: 'offset',
+        options: {
+          offset: [0, 20],
+        },
+      },
+    ],
   }
 })
 let isopen = ref(false)
@@ -77,6 +86,7 @@ const closeDebounceFinal = () => {
   openDebounce.cancel()
   closeDebounce()
 }
+// v-on可以批量绑定对象中的key：value的事件 利用record<string,any>存储事件名和函数
 const attachEvents = () => {
   if (props.trigger === 'click') {
     events['click'] = togglePopper
@@ -90,6 +100,7 @@ onMounted(() => {
     attachEvents()
   }
 })
+// 监听传入的manual值，如果为手动开启，则清除所有绑定事件
 watch(
   () => props.manual,
   (ismanual) => {
