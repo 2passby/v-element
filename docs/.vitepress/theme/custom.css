@@ -21,3 +21,7 @@ h6,
 p {
   color: var(--vp-c-text-1);
 }
+ul.vk-dropdown__menu {
+  padding: 0;
+  margin: 0;
+}

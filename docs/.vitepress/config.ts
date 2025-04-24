@@ -20,6 +20,7 @@ export default defineConfig({
     },
   },
   themeConfig: {
+    logo: '/img/logo.jpg',
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
@@ -39,6 +40,7 @@ export default defineConfig({
         items: [
           { text: 'Collapse折叠组件', link: '/components/collapse' },
           { text: 'Tooltip弹层组件', link: '/components/tooltip' },
+          { text: 'Dropdown弹层组件', link: '/components/dropdown' },
         ],
       },
       {

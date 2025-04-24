@@ -7,7 +7,9 @@ import Tooltip from '../Tooltip/Tooltip.vue'
 defineOptions({
   name: 'Vkdropdown',
 })
-const props = defineProps<Dropdownprops>()
+const props = withDefaults(defineProps<Dropdownprops>(), {
+  hideAfterClick: true,
+})
 const emits = defineEmits<DropdownEmits>()
 const visibleChange = (e: boolean) => {
   emits('visible-change', e)
@@ -15,6 +17,9 @@ const visibleChange = (e: boolean) => {
 const itemClick = (e: MenuOptions) => {
   if (e.disabled) return
   emits('select', e)
+  if (props.hideAfterClick) {
+    tooltipRef.value?.hide()
+  }
 }
 const tooltipRef = ref<TooltipInstance>()
 

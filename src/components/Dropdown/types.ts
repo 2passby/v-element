@@ -3,6 +3,7 @@ import type { TooltipProps } from '../Tooltip/types'
 
 export interface Dropdownprops extends TooltipProps {
   menuOptions: MenuOptions[]
+  hideAfterClick?: boolean
 }
 
 export interface MenuOptions {

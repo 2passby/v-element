@@ -8,7 +8,7 @@ import { defineOptions } from 'vue'
 import UseClickOutside from '@/hooks/UseClickOutside'
 import { debounce } from 'lodash-es'
 defineOptions({
-  name: 'vk-Tooltip',
+  name: 'vkTooltip',
 })
 const popperNode = ref<HTMLElement>()
 const triggerNode = ref<HTMLElement>()
