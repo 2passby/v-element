@@ -41,6 +41,7 @@ export default defineConfig({
           { text: 'Collapse折叠组件', link: '/components/collapse' },
           { text: 'Tooltip弹层组件', link: '/components/tooltip' },
           { text: 'Dropdown弹层组件', link: '/components/dropdown' },
+          { text: 'Message弹层组件', link: '/components/message' },
         ],
       },
       {

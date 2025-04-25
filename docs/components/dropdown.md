@@ -30,17 +30,18 @@ description: Dropdown 组件的文档
 
 ## Dropdown属性
 
-| 属性          | 描述            | 值                            | 默认值 |
-| ------------- | --------------- | ----------------------------- | ------ |
-| menuOptions   | content展示菜单 | 参考上面的展示样式            | 必选   |
-| content       | 要展示的内容    | string                        | 无     |
-| trigger       | 触发方式        | `hover`, `click`              | hover  |
-| placement     | 弹层位置        | `bottom`,`top`,`left`,`right` | bottom |
-| manual        | 手动/自动触发   | boolean                       | false  |
-| popperoptions | popper.js的参数 | Object                        | 无     |
-| transition    | 过渡样式        | string                        | fade   |
-| opendelay     | 开启延迟        | number                        | 0      |
-| closedelay    | 关闭延迟        | number                        | 0      |
+| 属性           | 描述               | 值                            | 默认值 |
+| -------------- | ------------------ | ----------------------------- | ------ |
+| menuOptions    | content展示菜单    | 参考上面的展示样式            | 必选   |
+| hideAfterClick | 点击选项后关闭弹层 | boolean                       | true   |
+| content        | 要展示的内容       | string                        | 无     |
+| trigger        | 触发方式           | `hover`, `click`              | hover  |
+| placement      | 弹层位置           | `bottom`,`top`,`left`,`right` | bottom |
+| manual         | 手动/自动触发      | boolean                       | false  |
+| popperoptions  | popper.js的参数    | Object                        | 无     |
+| transition     | 过渡样式           | string                        | fade   |
+| opendelay      | 开启延迟           | number                        | 0      |
+| closedelay     | 关闭延迟           | number                        | 0      |
 
 ## Dropdown事件
 

@@ -81,7 +81,7 @@ defineExpose({
     >
       <div class="vk-message__content">
         <slot>
-          {{ offset }} --{{ topOffset }} --{{ height }} --{{ bottomOffset }}
+          <!-- {{ offset }} --{{ topOffset }} --{{ height }} --{{ bottomOffset }} -->
           <RenderVnode v-if="message" :v-node="message"></RenderVnode>
         </slot>
       </div>
