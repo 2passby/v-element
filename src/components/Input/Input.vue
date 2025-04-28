@@ -15,18 +15,23 @@ const props = withDefaults(defineProps<InputProps>(), {
   autocomplete: 'off',
 })
 const emits = defineEmits<InputEmits>()
+// 也可以在模板中直接用$atts + v-bind绑定非props传递的属性，记得禁用属性透传
 const attrs = useAttrs()
+// 向外暴露的真实input实例
 const InputRef = ref<HTMLElement | null>()
 const innerValue = ref(props.modelValue)
 const isFocus = ref(false)
 const passwordVisible = ref(false)
+// 什么时候显示清除按钮
 const showClear = computed(() => {
   return isFocus && !props.disabled && props.clearable && !!innerValue.value
 })
+// 什么时候支持密码显示与切换
 const showPasswordArea = computed(() => {
   return !props.disabled && props.showPassword && !!innerValue.value
 })
 const formItemContext = inject(formItemContextKey)
+//支持表单校验
 const runValidation = (trigger?: string) => {
   // 捕获其中返回的校验错误
   formItemContext?.validate(trigger).catch((e) => console.log(e.errors))
@@ -83,6 +88,7 @@ defineExpose({
 })
 </script>
 <template>
+  <!-- 利用$slots获取slot中的内容 -->
   <div
     class="vk-input"
     :class="{

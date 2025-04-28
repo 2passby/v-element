@@ -17,6 +17,7 @@
     height: 0;
     opacity: 0;
     margin: 0;
+    /* 原生input获得焦点的时候 */
     &:focus-visible {
       & ~ .vk-switch__core {
         outline: 2px solid var(--vk-switch-on-color);
@@ -37,6 +38,7 @@
       .vk-switch__core-action {
         left: calc(100% - 17px);
       }
+      /* checked后修改文字位置 */
       .vk-switch__core-inner {
         padding: 0 18px 0 4px;
       }
@@ -107,6 +109,7 @@
     background-color: var(--vk-color-white);
     transition: all var(--vk-transition-duration);
   }
+
   .vk-switch__core-inner {
     width: 100%;
     transition: all var(--vk-transition-duration);

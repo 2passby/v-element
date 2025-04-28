@@ -37,6 +37,11 @@ filterable属性，若不传入filterMethod ，采用默认行为匹配字符过
 
 <preview path="../demo/Select/filter.vue" title="filter用法" description="Select组件的过滤用法" ></preview>
 
+## 自定义渲染函数
+
+根据传入的返回vnode的自定义渲染函数渲染结构
+<preview path="../demo/Select/modify.vue" title="modify用法" description="Select组件的modify用法" ></preview>
+
 ## 远程获取option
 
 通过remoteMethod返回一个promise类型的Selectoption数组，实现远程获取options值

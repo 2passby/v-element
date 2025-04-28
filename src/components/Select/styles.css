@@ -11,12 +11,15 @@
   display: inline-block;
   vertical-align: middle;
   line-height: 32px;
+  /* 消除原始的padding */
   .vk-tooltip .vk-tooltip__popper {
     padding: 0;
   }
+  /* 利用已经实现的input组件，focus的时候会添加focus类，给select添加边框 */
   .vk-input.is-focus .vk-input__wrapper {
     box-shadow: 0 0 0 1px var(--vk-select-input-focus-border-color) inset !important;
   }
+  /* 添加箭头的旋转效果 */
   .vk-input {
     .header-angle {
       transition: transform var(--vk-transition-duration);
@@ -31,6 +34,7 @@
   }
   .vk-select__nodata,
   .vk-select__loading {
+    width: 210px;
     padding: 10px 0;
     margin: 0;
     text-align: center;
@@ -55,7 +59,9 @@
     height: 34px;
     line-height: 34px;
     box-sizing: border-box;
+    width: 210px;
     cursor: pointer;
+
     /* & .xyz {
       display: flex;
       align-items: center;
@@ -79,5 +85,8 @@
         background-color: transparent;
       }
     }
+  }
+  .vk-select__nodata {
+    width: 210px;
   }
 }

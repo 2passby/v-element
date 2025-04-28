@@ -23,6 +23,7 @@ const props = withDefaults(defineProps<SelectProps>(), {
 const emits = defineEmits<SelectEmits>()
 const initialOption = findOption(props.modelValue)
 
+//标记当前选择的选项
 const states = reactive<SelectStates>({
   inputValue: initialOption ? initialOption.label : '',
   selectOptions: initialOption,
@@ -33,13 +34,16 @@ const states = reactive<SelectStates>({
 const tooltipRef = ref<TooltipInstance>()
 const isDropdownShow = ref(false)
 const inputRef = ref<inputInstance>()
+// 存储经过筛选的的options
 const filteredOptions = ref(props.options)
+//监听外部的options，更新内部的响应式对象filteredOptions
 watch(
   () => props.options,
   (newOptions) => {
     filteredOptions.value = newOptions
   },
 )
+// 显示清除图标
 const showClearIcon = computed(() => {
   return states.mousehover && states.inputValue && states.selectOptions && props.clearable
 })
@@ -99,6 +103,7 @@ const controlDropdown = (show: boolean) => {
     tooltipRef.value?.show()
   } else {
     if (props.filterable) {
+      //blur后回灌值
       states.inputValue = states.selectOptions ? states.selectOptions.label : ''
     }
     tooltipRef.value?.hide()
@@ -143,7 +148,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
       if (isDropdownShow.value) {
         if (states.highlightIndex !== -1 && filteredOptions.value[states.highlightIndex]) {
           itemSelect(filteredOptions.value[states.highlightIndex])
-          controlDropdown(false)
+          // controlDropdown(false)
         } else {
           controlDropdown(false)
         }
@@ -235,6 +240,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
         </div>
         <ul class="vk-select__menu" v-else>
           <template v-for="(item, index) in filteredOptions" :key="index">
+            <!-- states存储当前选中的项，并且每个li利用state判断是否被选中 -->
             <li
               class="vk-select__menu-item"
               :class="{
@@ -245,6 +251,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
               :id="`select-item-${item.value}`"
               @click.stop="itemSelect(item)"
             >
+              <!-- 根据传入的函数，返回一个vnode进行渲染 -->
               <RenderVnode :v-node="renderLabel ? renderLabel(item) : item.label"></RenderVnode>
             </li>
           </template>
